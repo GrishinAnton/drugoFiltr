@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+  <head>
+    <meta charset="utf-8">
+    <title>Главная страница</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="img/favicon/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/favicon/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/favicon/apple-touch-icon-114x114.png"><link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="container-wrapper">
+        <div class="filter-header flex flex_jc-sb flex_a-c p">
+          <p class="filter-header__title">Выберите друзей</p>
+          <button class="filter-header__close button-reset"></button>
+        </div>
+        <div class="filer-search flex flex_jc-sb flex_a-c p">
+          <input class="input_img" type="text" placeholder="Начните вводить имя друга">
+          <input type="text" placeholder="Название">
+        </div>
+        <div class="filter-body flex flex_jc-sb p">
+          <div class="left-column">
+            <p class="filter-body__title">Ваши друзья</p>
+            <div class="friends-wrapper">
+              <div class="friends-item friends-item_add flex">
+                <div class="friends-item__img"><img src="img/friend_artem.jpg" alt="1"></div>
+                <div class="friends-item__title">
+                  <p>Artem Barabanov</p>
+                </div>
+                <div class="friends-item__button">
+                  <button></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="right-column">
+            <p class="filter-body__title">Друзья в списке</p>
+          </div>
+        </div>
+        <div class="filter-footer p flex flex_a-c">
+          <button>Сохранить</button>
+        </div>
+      </div>
+    </div>
+    <!-- loadCss-->
+    <link rel="stylesheet" href="css/all.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- loadScript-->
+    <script src="js/all.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "excludeFiles": [
+    ".git",
+    "yaspeller",
+    "node_modules",
+    "libs",
+    "library",
+    "build"
+  ],
+  "lang": "ru",
+  "report": ["console", "html"],
+  "fileExtensions": [
+    ".md",
+    ".html"
+ ]
+
+}

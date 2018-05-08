@@ -1,0 +1,31 @@
+extends layout/_main
+
+block variables
+	- var title = 'Главная страница'
+
+block content
+	.container
+		.container-wrapper
+			.filter-header.flex.flex_jc-sb.flex_a-c.p
+				p.filter-header__title Выберите друзей
+				button.filter-header__close.button-reset
+			.filer-search.flex.flex_jc-sb.flex_a-c.p
+				input(type="text" placeholder="Начните вводить имя друга").input_img
+				input(type="text" placeholder="Название")
+			.filter-body.flex.flex_jc-sb.p
+				.left-column
+					p.filter-body__title Ваши друзья
+					.friends-wrapper
+						.friends-item.friends-item_add.flex
+							.friends-item__img
+								img(src="img/friend_artem.jpg", alt="1")
+							.friends-item__title
+								p Artem Barabanov
+							.friends-item__button
+								button
+				.right-column
+					p.filter-body__title Друзья в списке
+			
+			.filter-footer.p.flex.flex_a-c
+				button Сохранить
+block script

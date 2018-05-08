@@ -1,0 +1,27 @@
+psd path/to/design -t - Экспорт текста из psd 
+
+Подключение скриптов через cdn
+https://tech.yandex.ru/jslibs/#jquery
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="/assets/js/vendor/jquery.min.js"><\/script>')</script>
+
+
+schema.org
+<div class="col-md-5 col-sm-6 col-xs-12" itemscope itemtype="http://schema.org/LocalBusiness">
+	<div class="main-title main-title--footer">
+		<h2>Контакты</h2>
+	</div>
+	<span class="mfp-hide" itemprop="name">Батутный парк №1</span>
+	<div class="footer-contacts" >
+		<a class="link" href="tel:89381010400" itemprop="telephone">8-938-10-10-400</a>
+		<p itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"><span itemprop="addressLocality">г. Волгодонск</span>, <span itemprop="streetAddress">ул. Курчатова, 2</span></p>
+		<p><data itemprop="openingHours" value="Mo-Su 10:00-22:00">C 10:00 до 22:00</data></p>
+	</div>
+	<div class="footer-social">
+		<p>Мы в соц. сетях:</p>
+		<ul class="footer-social--table">
+			<li><a href="https://vk.com/batut_1_volgodonsk" title="ВК" target="_blank"></a></li>
+			<li><a class="instagram" href="https://www.instagram.com/batut_1_volgodonsk/" title="Инстаграм" target="_blank"></a></li>
+		</ul>
+	</div>
+</div>
