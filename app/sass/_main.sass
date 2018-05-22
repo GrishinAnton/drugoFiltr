@@ -50,7 +50,7 @@ button
 		align-items: center
 
 .container 
-	margin: 0 auto
+	margin: 100px auto
 	width: 620px
 
 	border-radius: 10px
@@ -101,12 +101,91 @@ button
 		background-position: 8px center
 
 
+.filter-body
+	.left-column,
+	.right-column
+		width: 50%
+
+	.left-column
+		padding-right: 15px
+		position: relative
+
+		&::after
+			position: absolute
+			content: ""
+			top: 0
+			right: -1px
+			width: 1px
+			height: 100%
+			background-color: #f0f0f0
+	&__title 
+		margin: 0
+		margin-top: 13px
+		padding-bottom: 4px
+		border-bottom: 1px solid #f0f0f0
+
+.friends-wrapper
+	max-height: 320px
+	overflow-y: auto
+
+.friends-item
+	height: 60px
+	overflow: hidden
+
+	&_active
+		background-color: #f0f0f0
+
+	&__img
+		margin-right: 5px
+		margin-left: 5px
+		img
+			margin: auto
+			max-width: 100%
+			height: auto
+			display: inline-block
+
+	&__title 
+		margin: 0
+
+		font-weight: 500
+		font-size: 14px
+		color: #4f4f4f
+
+	&__button
+		margin-left: auto
+		margin-right: 7px
+
+		button
+			position: relative
+			border: none
+			background-color: transparent
+			transition: all .2s
+			
+			&::after 
+				position: absolute
+				content: ""
+				top: 50%
+				transform: translateY(-50%) rotate(0deg)
+				right: 0
+				width: 16px
+				height: 16px
+
+				background-repeat: no-repeat
+				background-position: center
+				background-image: url('../img/icon-add-friends.png')
+
+		&_remove button::after 
+			transform: translateY(-50%) rotate(45deg)
+
+.right-column
+	padding-left: 15px
+
 .filter-footer
 	height: 45px
 
 	background-color: #f0f0f0
 
-	button
+	button 
 		width: 86px
 		height: 30px
 		margin-left: auto
