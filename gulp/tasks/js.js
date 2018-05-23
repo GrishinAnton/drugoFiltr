@@ -2,11 +2,9 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var rename = require("gulp-rename")
-var rigger = require('gulp-rigger');
 
 gulp.task('js-build', function () {
-	gulp.src('app/js/parts/common.js')
-		.pipe(rigger())
+	gulp.src('app/js/common.js')
 		.pipe(gulp.dest('app/js/'));
 });
 
