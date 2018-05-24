@@ -4,7 +4,7 @@ var runSequence = require('run-sequence');
 gulp.task('default', function() {
    runSequence(
    	// ['ttf2woff', 'ttf2woff2'],
-   	'scripts',
+   	// 'scripts',
    	 'sass',
    	 'pug',
    	//  'svg',

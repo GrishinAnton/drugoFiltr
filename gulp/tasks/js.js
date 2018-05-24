@@ -9,11 +9,11 @@ gulp.task('js-build', function () {
 });
 
  
-gulp.task('scripts', function() {
-  return gulp.src('app/js/libs/*.js')
-    .pipe(concat('all.js'))
-    .pipe(gulp.dest('app/js/'));
-});
+// gulp.task('scripts', function() {
+//   return gulp.src('app/js/libs/*.js')
+//     .pipe(concat('all.js'))
+//     .pipe(gulp.dest('app/js/'));
+// });
 
 gulp.task('scripts:copy', function() {
   return gulp.src('app/js/*.js')

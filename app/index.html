@@ -27,85 +27,11 @@
         <div class="filter-body flex flex_jc-sb p">
           <div class="left-column">
             <p class="filter-body__title">Ваши друзья</p>
-            <div class="friends-wrapper">
-              <div class="friends-item flex flex_a-c">
-                <div class="friends-item__img flex"><img src="img/irishka.png" alt="1"></div>
-                <div class="friends-item__title">
-                  <p>Artem Barabanov</p>
-                </div>
-                <div class="friends-item__button flex">
-                  <button></button>
-                </div>
-              </div>
-              <div class="friends-item friends-item_active flex flex_a-c">
-                <div class="friends-item__img flex"><img src="img/irishka.png" alt="1"></div>
-                <div class="friends-item__title">
-                  <p>Artem Barabanov</p>
-                </div>
-                <div class="friends-item__button flex">
-                  <button></button>
-                </div>
-              </div>
-              <div class="friends-item flex flex_a-c">
-                <div class="friends-item__img flex"><img src="img/irishka.png" alt="1"></div>
-                <div class="friends-item__title">
-                  <p>Artem Barabanov</p>
-                </div>
-                <div class="friends-item__button flex">
-                  <button></button>
-                </div>
-              </div>
-              <div class="friends-item flex flex_a-c">
-                <div class="friends-item__img flex"><img src="img/irishka.png" alt="1"></div>
-                <div class="friends-item__title">
-                  <p>Artem Barabanov</p>
-                </div>
-                <div class="friends-item__button flex">
-                  <button></button>
-                </div>
-              </div>
-              <div class="friends-item flex flex_a-c">
-                <div class="friends-item__img flex"><img src="img/irishka.png" alt="1"></div>
-                <div class="friends-item__title">
-                  <p>Artem Barabanov</p>
-                </div>
-                <div class="friends-item__button flex">
-                  <button></button>
-                </div>
-              </div>
-              <div class="friends-item flex flex_a-c">
-                <div class="friends-item__img flex"><img src="img/irishka.png" alt="1"></div>
-                <div class="friends-item__title">
-                  <p>Artem Barabanov</p>
-                </div>
-                <div class="friends-item__button flex">
-                  <button></button>
-                </div>
-              </div>
-            </div>
+            <div class="friends-wrapper"></div>
           </div>
           <div class="right-column">
             <p class="filter-body__title">Друзья в списке</p>
-            <div class="friends-wrapper">
-              <div class="friends-item flex flex_a-c">
-                <div class="friends-item__img flex"><img src="img/irishka.png" alt="1"></div>
-                <div class="friends-item__title">
-                  <p>Artem Barabanov</p>
-                </div>
-                <div class="friends-item__button friends-item__button_remove flex">
-                  <button></button>
-                </div>
-              </div>
-              <div class="friends-item friends-item_active flex flex_a-c">
-                <div class="friends-item__img flex"><img src="img/irishka.png" alt="1"></div>
-                <div class="friends-item__title">
-                  <p>Artem Barabanov</p>
-                </div>
-                <div class="friends-item__button friends-item__button_remove flex">
-                  <button></button>
-                </div>
-              </div>
-            </div>
+            <div class="friends-wrapper"></div>
           </div>
         </div>
         <div class="filter-footer p flex flex_a-c">
@@ -114,7 +40,7 @@
       </div>
     </div><script id="user-template" type="text/x-handlebars-template">
     {{#each items}}
-    <div class="friends-item flex flex_a-c">
+    <div class="friends-item flex flex_a-c" draggable="true">
         <div class="friends-item__img flex">
             <img src="{{photo_100}}" alt="{{first_name}}">
         </div>
@@ -128,10 +54,8 @@
     {{/each}}
 </script>
     <!-- loadCss-->
-    <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/style.css">
     <!-- loadScript-->
-    <script src="js/all.js"></script>
     <script src="js/common.js"></script>
   </body>
 </html>
