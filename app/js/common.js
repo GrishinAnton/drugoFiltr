@@ -3,30 +3,30 @@ VK.init({
 });
 
 function auth() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject ) => {
 
         VK.Auth.login(data => {
             if (data.session) {
-                resolve()
+                resolve();
             } else {
-                reject(new Error('Не шмогла'))
+                reject(new Error('Не шмогла'));
             }
-        },2)
-    })
+        },2);
+    });
 }
 
 function callAPI(method, params) {
     params.v = '5.76';
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject ) => {
         VK.api(method, params, (data) => {
             if (data.error) {
-                reject(data.error)
+                reject(data.error);
             } else {
-                resolve(data.response)
+                resolve(data.response);
             }
-        })
-    })
+        });
+    });
 }
 
 (async () => {
@@ -35,18 +35,51 @@ function callAPI(method, params) {
 
         const friends = await callAPI('friends.get', { fields: 'photo_100', count: 20 });
 
-        
+        let inputFriendsVk = document.querySelector('.input-friends-vk');
+        let inputFriendsSave = document.querySelector('.input-friends-save');
 
-        update(friends);
-        onButton();
+
+
+        inputFriendsVk.addEventListener('input', (e)=>{
+            
+            leftArr.items = []
+            if (e.target.value) {
+
+                friends.items.forEach(item => { 
+                    if (isMatch(`${item.first_name} ${item.last_name}`, e.target.value)){
+                        leftArr.items.push(item)
+                    }
+                });
+
+                update(leftArr);
+
+            } else {
+
+                update(friends);
+            }
+        });
+
         
+        let rightArr = [];
+
+        update(friends);        
+        onButton();        
     
     } catch (e) {
         console.log(e);
     }
 
 })();
+
 let currentDrag;
+let leftArr = {
+    items: []
+};
+
+
+function isMatch(full, chunk){
+    return full.toLowerCase().indexOf(chunk.toLowerCase()) !== -1 ? true : false;
+}
 
 function update(friends) {
     const template = document.querySelector('#user-template').textContent;
@@ -65,15 +98,15 @@ function onButton() {
 
     let rightZone = document.querySelector('.right-column .friends-wrapper');
 
-    button.forEach(item => {
-        item.addEventListener('click', ()=>{
-            if (getCurrentZone(item, 'left-column') === leftColumn) {
-                rightZone.appendChild(getCurrentZone(item, 'friends-item'));
-            } else {
-                leftZone.appendChild(getCurrentZone(item, 'friends-item'));
-            }
-        })
-    })
+    document.addEventListener('click', (e) => {
+        var currentBtn = getCurrentZone(e.target, 'button');        
+
+        if (getCurrentZone(currentBtn, 'left-column') === leftColumn) {
+            rightZone.appendChild(getCurrentZone(currentBtn, 'friends-item'));
+        } else {
+            leftZone.appendChild(getCurrentZone(currentBtn, 'friends-item'));
+        }
+    });
 }
 
 document.addEventListener('dragstart', e => {
