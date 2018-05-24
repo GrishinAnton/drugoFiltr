@@ -161,30 +161,31 @@ button
 		margin-left: auto
 		margin-right: 7px
 
-		button
-			position: relative
-			border: none
-			background-color: transparent
-			transition: all .2s
-			
-			&::after 
-				position: absolute
-				content: ""
-				top: 50%
-				transform: translateY(-50%) rotate(0deg)
-				right: 0
-				width: 16px
-				height: 16px
+.button
+	position: relative
+	border: none
+	background-color: transparent
+	transition: all .2s
+	
+	&::after 
+		position: absolute
+		content: ""
+		top: 50%
+		transform: translateY(-50%) rotate(0deg)
+		right: 0
+		width: 16px
+		height: 16px
 
-				background-repeat: no-repeat
-				background-position: center
-				background-image: url('../img/icon-add-friends.png')
+		background-repeat: no-repeat
+		background-position: center
+		background-image: url('../img/icon-add-friends.png')
 
-		&_remove button::after 
-			transform: translateY(-50%) rotate(45deg)
 
 .right-column
 	padding-left: 15px
+
+	.button::after 
+		transform: translateY(-50%) rotate(45deg)	
 
 .filter-footer
 	height: 45px
