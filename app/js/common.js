@@ -34,7 +34,8 @@ function callAPI(method, params) {
         await auth();
 
         const friends = await callAPI('friends.get', { fields: 'photo_100', count: 20 });
-
+        console.log(friends);
+        
         let inputFriendsVk = document.querySelector('.input-friends-vk');
         let inputFriendsSave = document.querySelector('.input-friends-save');
 
@@ -90,6 +91,10 @@ function update(friends) {
     const render = Handlebars.compile(template);        
     const html = render(friends);
     const wrapper = document.querySelector('.friends-wrapper');
+
+    friends.forEach((item) => {
+        document.querySelector('[data-id="' + item.id +'"]').item = item
+    })
 
     wrapper.innerHTML = html;
 }
