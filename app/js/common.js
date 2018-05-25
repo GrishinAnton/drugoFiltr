@@ -60,7 +60,7 @@ function callAPI(method, params) {
         });
 
         
-        let rightArr = [];
+        
 
         update(friends);        
         onButton();        
@@ -73,6 +73,10 @@ function callAPI(method, params) {
 
 let currentDrag;
 let leftArr = {
+    items: []
+};
+
+let rightArr = {
     items: []
 };
 
@@ -99,6 +103,7 @@ function onButton() {
     let rightZone = document.querySelector('.right-column .friends-wrapper');
 
     document.addEventListener('click', (e) => {
+
         var currentBtn = getCurrentZone(e.target, 'button');        
 
         if (getCurrentZone(currentBtn, 'left-column') === leftColumn) {
