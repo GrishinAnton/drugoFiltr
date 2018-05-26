@@ -34,36 +34,33 @@ function callAPI(method, params) {
         await auth();
 
         const friends = await callAPI('friends.get', { fields: 'photo_100', count: 20 });
-        console.log(friends);
-        
+           
         let inputFriendsVk = document.querySelector('.input-friends-vk');
         let inputFriendsSave = document.querySelector('.input-friends-save');
 
-
+        leftColumn.items = friends.items.slice()
 
         inputFriendsVk.addEventListener('input', (e)=>{
-            
-            leftArr.items = []
+
             if (e.target.value) {
 
-                friends.items.forEach(item => { 
+                let arr = []
+
+                leftColumn.items.forEach(item => { 
                     if (isMatch(`${item.first_name} ${item.last_name}`, e.target.value)){
-                        leftArr.items.push(item)
+                        arr.push(item)
                     }
                 });
 
-                update(leftArr);
-
+                update(arr);
             } else {
 
-                update(friends);
+                update(leftColumn.items);
             }
-        });
-
-        
+        });       
         
 
-        update(friends);        
+        update(leftColumn.items);        
         onButton();        
     
     } catch (e) {
@@ -73,11 +70,11 @@ function callAPI(method, params) {
 })();
 
 let currentDrag;
-let leftArr = {
+var leftColumn = {
     items: []
 };
 
-let rightArr = {
+let rightColumn = {
     items: []
 };
 
@@ -92,9 +89,12 @@ function update(friends) {
     const html = render(friends);
     const wrapper = document.querySelector('.friends-wrapper');
 
-    friends.forEach((item) => {
-        document.querySelector('[data-id="' + item.id +'"]').item = item
-    })
+    setTimeout(()=>{
+        friends.forEach((item) => {
+            document.querySelector(`[data-id='${item.id}']`).item = item.id 
+           
+       })
+    },0)    
 
     wrapper.innerHTML = html;
 }
@@ -102,31 +102,57 @@ function update(friends) {
 function onButton() {
     let button = document.querySelectorAll('.button');
 
-    let leftColumn = document.querySelector('.left-column');
+    let leftBlock = document.querySelector('.left-column');
     let leftZone = document.querySelector('.left-column .friends-wrapper');
 
     let rightZone = document.querySelector('.right-column .friends-wrapper');
 
     document.addEventListener('click', (e) => {
 
-        var currentBtn = getCurrentZone(e.target, 'button');        
-
-        if (getCurrentZone(currentBtn, 'left-column') === leftColumn) {
-            rightZone.appendChild(getCurrentZone(currentBtn, 'friends-item'));
-        } else {
-            leftZone.appendChild(getCurrentZone(currentBtn, 'friends-item'));
-        }
+        var currentBtn = getCurrentZone(e.target, 'button');   
+        
+        if(currentBtn) {
+            if (getCurrentZone(currentBtn, 'left-column') === leftBlock) {
+                let currentItem = getCurrentZone(currentBtn, 'friends-item')
+                changeFriendsColumn(currentItem, 'left')
+                rightZone.appendChild(currentItem);
+                
+            } else {
+                let currentItem = getCurrentZone(currentBtn, 'friends-item')
+                changeFriendsColumn(currentItem, 'right')
+                leftZone.appendChild(currentItem);
+            }
+        }        
     });
+}
+
+function changeFriendsColumn(currentItem, column){
+    var currentColumn = column === 'left' ? leftColumn : rightColumn
+    var siblingColumn = column === 'left' ? rightColumn : leftColumn
+
+    for(let i in currentColumn.items) {
+        if(currentColumn.items[i].id === currentItem.item){
+            siblingColumn.items.push(currentColumn.items[i])
+            currentColumn.items.splice(i,1)
+        }                    
+    }
+    console.log(leftColumn.items)
+    console.log(rightColumn.items)
+    
 }
 
 document.addEventListener('dragstart', e => {
     const zone = getCurrentZone(e.target, 'friends-wrapper');
-    const item = getCurrentZone(e.target, 'friends-item');   
+    const item = getCurrentZone(e.target, 'friends-item'); 
+    const column = getCurrentZone(e.target, 'left-column') === null ? 'right' : 'left';     
     
+
     if (zone) {
         currentDrag = {
             startZone: zone,
-            node: item
+            node: item,
+            id: item,
+            column: column
         }
         currentDrag.node.classList.add('friends-item_active');
     }
@@ -149,8 +175,9 @@ document.addEventListener('drop', (e) => {
         e.preventDefault();
 
         if (zone && currentDrag.startZone !== zone) {
-            currentDrag.node.classList.remove('friends-item_active')
+            currentDrag.node.classList.remove('friends-item_active');
             zone.appendChild(currentDrag.node);
+            changeFriendsColumn(currentDrag.id, currentDrag.column)
         }
 
     }

@@ -1,6 +1,6 @@
 <script id="user-template" type="text/x-handlebars-template">
-    {{#each items}}
-    <div class="friends-item flex flex_a-c" draggable="true" data-id="">
+    {{#each this}}
+    <div class="friends-item flex flex_a-c" draggable="true" data-id="{{id}}">
         <div class="friends-item__img flex">
             <img src="{{photo_100}}" alt="{{first_name}}">
         </div>
