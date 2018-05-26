@@ -35,32 +35,29 @@ function callAPI(method, params) {
 
         const friends = await callAPI('friends.get', { fields: 'photo_100', count: 20 });
            
-        let inputFriendsVk = document.querySelector('.input-friends-vk');
-        let inputFriendsSave = document.querySelector('.input-friends-save');
-
         leftColumn.items = friends.items.slice()
 
-        inputFriendsVk.addEventListener('input', (e)=>{
+        document.addEventListener('input', (e)=>{
+            zone =  getCurrentZone(e.target, 'input-friends-vk') === null ? rightColumn :leftColumn;
+            column =  getCurrentZone(e.target, 'input-friends-vk') === null ? 'right-column' :'left-column';
 
             if (e.target.value) {
-
                 let arr = []
 
-                leftColumn.items.forEach(item => { 
+                zone.items.forEach(item => { 
                     if (isMatch(`${item.first_name} ${item.last_name}`, e.target.value)){
                         arr.push(item)
                     }
                 });
 
-                update(arr);
+                update(arr, column);
             } else {
 
-                update(leftColumn.items);
+                update(zone.items, column);
             }
-        });       
-        
+        });
 
-        update(leftColumn.items);        
+        update(leftColumn.items, 'left-column');        
         onButton();        
     
     } catch (e) {
@@ -83,11 +80,11 @@ function isMatch(full, chunk){
     return full.toLowerCase().indexOf(chunk.toLowerCase()) !== -1 ? true : false;
 }
 
-function update(friends) {
+function update(friends, column) {
     const template = document.querySelector('#user-template').textContent;
     const render = Handlebars.compile(template);        
     const html = render(friends);
-    const wrapper = document.querySelector('.friends-wrapper');
+    const wrapper = document.querySelector(`.${column} .friends-wrapper`);
 
     setTimeout(()=>{
         friends.forEach((item) => {
@@ -100,7 +97,6 @@ function update(friends) {
 }
 
 function onButton() {
-    let button = document.querySelectorAll('.button');
 
     let leftBlock = document.querySelector('.left-column');
     let leftZone = document.querySelector('.left-column .friends-wrapper');
@@ -109,24 +105,26 @@ function onButton() {
 
     document.addEventListener('click', (e) => {
 
-        var currentBtn = getCurrentZone(e.target, 'button');   
+        var currentBtn = getCurrentZone(e.target, 'js-button');           
         
         if(currentBtn) {
             if (getCurrentZone(currentBtn, 'left-column') === leftBlock) {
-                let currentItem = getCurrentZone(currentBtn, 'friends-item')
-                changeFriendsColumn(currentItem, 'left')
+                let currentItem = getCurrentZone(currentBtn, 'friends-item') 
+                changeFriendsColumn(currentItem, 'left')               
                 rightZone.appendChild(currentItem);
                 
+                
             } else {
-                let currentItem = getCurrentZone(currentBtn, 'friends-item')
-                changeFriendsColumn(currentItem, 'right')
+                let currentItem = getCurrentZone(currentBtn, 'friends-item')  
+                changeFriendsColumn(currentItem, 'right')             
                 leftZone.appendChild(currentItem);
+                
             }
         }        
     });
 }
 
-function changeFriendsColumn(currentItem, column){
+function changeFriendsColumn(currentItem, column){    
     var currentColumn = column === 'left' ? leftColumn : rightColumn
     var siblingColumn = column === 'left' ? rightColumn : leftColumn
 
@@ -136,9 +134,6 @@ function changeFriendsColumn(currentItem, column){
             currentColumn.items.splice(i,1)
         }                    
     }
-    console.log(leftColumn.items)
-    console.log(rightColumn.items)
-    
 }
 
 document.addEventListener('dragstart', e => {
