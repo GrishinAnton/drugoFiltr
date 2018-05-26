@@ -88,8 +88,7 @@ function update(friends, column) {
 
     setTimeout(()=>{
         friends.forEach((item) => {
-            document.querySelector(`[data-id='${item.id}']`).item = item.id 
-           
+            document.querySelector(`[data-id='${item.id}']`).item = item.id;
        })
     },0)    
 
@@ -105,22 +104,33 @@ function onButton() {
 
     document.addEventListener('click', (e) => {
 
-        var currentBtn = getCurrentZone(e.target, 'js-button');           
-        
+        console.log()
+
+        var currentBtn = getCurrentZone(e.target, 'js-button');   
+
         if(currentBtn) {
-            if (getCurrentZone(currentBtn, 'left-column') === leftBlock) {
-                let currentItem = getCurrentZone(currentBtn, 'friends-item') 
-                changeFriendsColumn(currentItem, 'left')               
-                rightZone.appendChild(currentItem);
-                
-                
-            } else {
-                let currentItem = getCurrentZone(currentBtn, 'friends-item')  
-                changeFriendsColumn(currentItem, 'right')             
-                leftZone.appendChild(currentItem);
+
+            if(currentBtn.classList.contains('button-item')) {
+                if (getCurrentZone(currentBtn, 'left-column') === leftBlock) {
+                    let currentItem = getCurrentZone(currentBtn, 'friends-item') 
+                    changeFriendsColumn(currentItem, 'left')               
+                    rightZone.appendChild(currentItem);
+                    
+                    
+                } else {
+                    let currentItem = getCurrentZone(currentBtn, 'friends-item')  
+                    changeFriendsColumn(currentItem, 'right')             
+                    leftZone.appendChild(currentItem);
+                    
+                }
+            } 
+
+            if(currentBtn.classList.contains('button-save')) {
                 
             }
-        }        
+
+        }
+               
     });
 }
 
