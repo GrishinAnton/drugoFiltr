@@ -67,6 +67,7 @@ function callAPI(method, params) {
 })();
 
 let currentDrag;
+//массивы совместить
 var leftColumn = {
     items: []
 };
@@ -92,7 +93,8 @@ function update(friends, column) {
        })
     },0)    
 
-    wrapper.innerHTML = html;
+    wrapper.innerHTML = html;//поднять наверх
+    
 }
 
 function onButton() {
@@ -104,13 +106,13 @@ function onButton() {
 
     document.addEventListener('click', (e) => {
 
-        console.log()
-
-        var currentBtn = getCurrentZone(e.target, 'js-button');   
+        let currentBtn = getCurrentZone(e.target, 'js-button');   
 
         if(currentBtn) {
+            //можно вынести логику на css классы
 
             if(currentBtn.classList.contains('button-item')) {
+                //попробовать сравнивать классы а не элементы дом дерева
                 if (getCurrentZone(currentBtn, 'left-column') === leftBlock) {
                     let currentItem = getCurrentZone(currentBtn, 'friends-item') 
                     changeFriendsColumn(currentItem, 'left')               
@@ -135,8 +137,8 @@ function onButton() {
 }
 
 function changeFriendsColumn(currentItem, column){    
-    var currentColumn = column === 'left' ? leftColumn : rightColumn
-    var siblingColumn = column === 'left' ? rightColumn : leftColumn
+    let currentColumn = column === 'left' ? leftColumn : rightColumn
+    let siblingColumn = column === 'left' ? rightColumn : leftColumn
 
     for(let i in currentColumn.items) {
         if(currentColumn.items[i].id === currentItem.item){
