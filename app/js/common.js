@@ -35,16 +35,16 @@ function callAPI(method, params) {
 
         const friends = await callAPI('friends.get', { fields: 'photo_100', count: 20 });
            
-        leftColumn.items = friends.items.slice()
+        arrays.leftItems = friends.items.slice()
 
         document.addEventListener('input', (e)=>{
-            zone =  getCurrentZone(e.target, 'input-friends-vk') === null ? rightColumn :leftColumn;
-            column =  getCurrentZone(e.target, 'input-friends-vk') === null ? 'right-column' :'left-column';
+            zone =  getCurrentZone(e.target, 'input-friends-vk') === null ? arrays.rightItems : arrays.leftItems;
+            column =  zone === arrays.rightItems ? 'right-column' : 'left-column';
 
             if (e.target.value) {
                 let arr = []
 
-                zone.items.forEach(item => { 
+                zone.forEach(item => { 
                     if (isMatch(`${item.first_name} ${item.last_name}`, e.target.value)){
                         arr.push(item)
                     }
@@ -53,11 +53,11 @@ function callAPI(method, params) {
                 update(arr, column);
             } else {
 
-                update(zone.items, column);
+                update(zone, column);
             }
         });
 
-        update(leftColumn.items, 'left-column');        
+        update(arrays.leftItems, 'left-column');        
         onButton();        
     
     } catch (e) {
@@ -67,17 +67,12 @@ function callAPI(method, params) {
 })();
 
 let currentDrag;
-//массивы совместить
-var leftColumn = {
-    items: []
+var arrays= {
+    leftItems: [],
+    rightItems: []
 };
 
-let rightColumn = {
-    items: []
-};
-
-
-function isMatch(full, chunk){
+function isMatch (full, chunk) {
     return full.toLowerCase().indexOf(chunk.toLowerCase()) !== -1 ? true : false;
 }
 
@@ -94,38 +89,30 @@ function update(friends, column) {
     });
 }
 
-function onButton() {
-
-    let leftBlock = document.querySelector('.left-column');
+function onButton () {
     let leftZone = document.querySelector('.left-column .friends-wrapper');
-
     let rightZone = document.querySelector('.right-column .friends-wrapper');
-
+    
     document.addEventListener('click', (e) => {
 
         let currentBtn = getCurrentZone(e.target, 'js-button');   
 
-        if(currentBtn) {
-            //можно вынести логику на css классы
+        if (currentBtn) {
+            if (currentBtn.classList.contains('button-item')) {
 
-            if(currentBtn.classList.contains('button-item')) {
-                //попробовать сравнивать классы а не элементы дом дерева
-                if (getCurrentZone(currentBtn, 'left-column') === leftBlock) {
+                if (getCurrentZone(currentBtn, 'left-column')) {
                     let currentItem = getCurrentZone(currentBtn, 'friends-item') 
                     changeFriendsColumn(currentItem, 'left')               
                     rightZone.appendChild(currentItem);
-                    
-                    
                 } else {
                     let currentItem = getCurrentZone(currentBtn, 'friends-item')  
                     changeFriendsColumn(currentItem, 'right')             
                     leftZone.appendChild(currentItem);
-                    
                 }
             } 
 
             if(currentBtn.classList.contains('button-save')) {
-                
+                localStorage.setItem('array', JSON.stringify(arrays))
             }
 
         }
@@ -134,8 +121,8 @@ function onButton() {
 }
 
 function changeFriendsColumn(currentItem, column){    
-    let currentColumn = column === 'left' ? leftColumn : rightColumn
-    let siblingColumn = column === 'left' ? rightColumn : leftColumn
+    let currentColumn = column === 'left' ? arrays.leftItems : arrays.rightItems;
+    let siblingColumn = column === 'left' ? arrays.rightItems : arrays.leftItems;    
 
     for(let i in currentColumn.items) {
         if(currentColumn.items[i].id === currentItem.item){
