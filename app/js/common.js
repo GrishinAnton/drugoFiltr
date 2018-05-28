@@ -87,14 +87,11 @@ function update(friends, column) {
     const html = render(friends);
     const wrapper = document.querySelector(`.${column} .friends-wrapper`);
 
-    setTimeout(()=>{
-        friends.forEach((item) => {
-            document.querySelector(`[data-id='${item.id}']`).item = item.id;
-       })
-    },0)    
+    wrapper.innerHTML = html;
 
-    wrapper.innerHTML = html;//поднять наверх
-    
+    friends.forEach((item) => {
+        item.item = item.id;
+    });
 }
 
 function onButton() {
