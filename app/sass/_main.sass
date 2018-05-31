@@ -1,0 +1,219 @@
+body
+	font-size: 16px
+	min-width: 320px
+	position: relative
+	line-height: 1.6
+	font-family: 'Fira Sans', sans-serif
+	overflow-x: hidden
+	margin: 0
+	padding: 0
+
+ul
+	list-style-type: none
+	margin: 0
+	padding: 0
+
+a:active,
+a:visited,
+a:focus
+	text-decoration: none
+
+
+.visually-hidden:not(:focus):not(:active)
+	position: absolute
+
+	width: 1px 
+	height: 1px 
+	margin: -1px
+	border: 0
+	padding: 0
+
+	white-space: nowrap
+	clip-path: insert(100%)
+	clip: rect(0 0 0 0)
+	overflow: hidden
+
+*,
+*::after,
+*::before
+	box-sizing: border-box
+
+button 
+	cursor: pointer
+
+
+.flex
+	display: flex
+	&_jc-sb
+		justify-content: space-between
+	&_a-c
+		align-items: center
+
+.container 
+	margin: 100px auto
+	width: 620px
+
+	border-radius: 10px
+
+.filter-header
+	height: 45px
+
+
+	background-color: #ff8663
+	border-top-left-radius: 10px
+	border-top-right-radius: 10px
+
+	&__title 
+		margin: 0
+		padding: 0
+		color: #fff
+
+		font-size: 16px
+		font-weight: 500
+	&__close 
+		background-position: center
+		background-image: url('../img/icon-close-header.png')
+
+.filer-search
+	height: 45px
+
+	background-color: #f0f0f0
+
+	input
+		height: 25px
+		width: 48%
+		padding-left: 13px
+
+		font-size: 12px
+		color: #000
+		font-family: inherit
+		font-weight: 300
+
+		border-radius: 30px
+		border: none
+		+placeholder-color(#9f9f9f)
+
+	.input_img
+		padding-left: 25px
+
+		background-repeat: no-repeat
+		background-image: url('../img/icon-search.png')
+		background-position: 8px center
+
+
+.filter-body
+	.left-column,
+	.right-column
+		width: 50%
+
+	.left-column
+		padding-right: 15px
+		position: relative
+
+		&::after
+			position: absolute
+			content: ""
+			top: 0
+			right: -1px
+			width: 1px
+			height: 100%
+			background-color: #f0f0f0
+	&__title 
+		margin: 0
+		margin-top: 13px
+		padding-bottom: 4px
+		border-bottom: 1px solid #f0f0f0
+
+.friends-wrapper
+	max-height: 320px
+	height: 100%
+	overflow-y: auto
+
+.friends-item
+	height: 60px
+	overflow: hidden
+	cursor: move
+
+	&:hover 
+		background-color: #f0f0f0
+
+	&_active
+		background-color: #f0f0f0
+
+	&__img
+		margin-right: 5px
+		margin-left: 5px
+		img
+			margin: auto
+			width: 45px
+			height: 45px
+			border-radius: 50%
+			display: inline-block
+
+	&__title 
+		margin: 0
+
+		font-weight: 500
+		font-size: 14px
+		color: #4f4f4f
+
+	&__button
+		margin-left: auto
+		margin-right: 7px
+
+.button
+	position: relative
+	border: none
+	background-color: transparent
+	transition: all .2s
+	
+	&::after 
+		position: absolute
+		content: ""
+		top: 50%
+		transform: translateY(-50%) rotate(0deg)
+		right: 0
+		width: 16px
+		height: 16px
+
+		background-repeat: no-repeat
+		background-position: center
+		background-image: url('../img/icon-add-friends.png')
+
+
+.right-column
+	padding-left: 15px
+
+	.button::after 
+		transform: translateY(-50%) rotate(45deg)	
+
+.filter-footer
+	height: 45px
+
+	background-color: #f0f0f0
+
+	button 
+		width: 86px
+		height: 30px
+		margin-left: auto
+
+		color: #fff
+		font-weight: 300
+		font-family: inherit
+
+		border: none
+		border-radius: 15px
+		background-color: #ff8663
+
+.button-reset
+	margin: 0
+	padding: 0
+	font-size: 0
+	width: 16px
+	height: 16px
+	background-color: transparent
+	border: none
+
+.p
+	padding-left: 15px
+	padding-right: 15px
