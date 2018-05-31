@@ -34,19 +34,35 @@ function callAPI(method, params) {
         await auth();
 
         const friends = await callAPI('friends.get', { fields: 'photo_100', count: 20 });
-           
-        arrays.leftItems = friends.items.slice()
+
+        if (localStorage.getItem('array')) {
+            arrays.rightItems = JSON.parse(localStorage.getItem('array'))
+
+            for(var i = 0; i < friends.items.length; i++){
+                for(var j = 0; j < arrays.rightItems.length; j++) {
+
+                    if(friends.items[i].id == arrays.rightItems[j].id) {
+                        friends.items.splice(i, 1)                        
+                    }
+                }  
+            }
+            arrays.leftItems = friends.items.slice();
+            update(arrays.rightItems, 'right-column'); 
+
+        } else {
+            arrays.leftItems = friends.items.slice();
+        }
 
         document.addEventListener('input', (e)=>{
             zone =  getCurrentZone(e.target, 'input-friends-vk') === null ? arrays.rightItems : arrays.leftItems;
             column =  zone === arrays.rightItems ? 'right-column' : 'left-column';
 
             if (e.target.value) {
-                let arr = []
+                let arr = [];
 
                 zone.forEach(item => { 
                     if (isMatch(`${item.first_name} ${item.last_name}`, e.target.value)){
-                        arr.push(item)
+                        arr.push(item);
                     }
                 });
 
@@ -84,9 +100,11 @@ function update(friends, column) {
 
     wrapper.innerHTML = html;
 
-    friends.forEach((item) => {
-        item.item = item.id;
+    friends.forEach((item) => {    
+        document.querySelector(`[data-id='${item.id}']`).item = item.id;
     });
+
+    
 }
 
 function onButton () {
@@ -112,7 +130,7 @@ function onButton () {
             } 
 
             if(currentBtn.classList.contains('button-save')) {
-                localStorage.setItem('array', JSON.stringify(arrays))
+                localStorage.setItem('array', JSON.stringify(arrays.rightItems))
             }
 
         }
@@ -124,10 +142,10 @@ function changeFriendsColumn(currentItem, column){
     let currentColumn = column === 'left' ? arrays.leftItems : arrays.rightItems;
     let siblingColumn = column === 'left' ? arrays.rightItems : arrays.leftItems;    
 
-    for(let i in currentColumn.items) {
-        if(currentColumn.items[i].id === currentItem.item){
-            siblingColumn.items.push(currentColumn.items[i])
-            currentColumn.items.splice(i,1)
+    for(let i in currentColumn) {
+        if(currentColumn[i].id === currentItem.item){
+            siblingColumn.push(currentColumn[i])
+            currentColumn.splice(i,1)
         }                    
     }
 }
