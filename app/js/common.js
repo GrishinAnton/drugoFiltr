@@ -1,41 +1,15 @@
 import { isMatch } from './isMatch.js';
+import vkAuth from './apiVK/auth.js';
+import { getCurrentZone } from './getCurrentZone.js';
+import vkAPI from './apiVK/callAPI.js';
 
-VK.init({
-    apiId: 6487256
-});
 
-function auth() {
-    return new Promise((resolve, reject ) => {
-
-        VK.Auth.login(data => {
-            if (data.session) {
-                resolve();
-            } else {
-                reject(new Error('Не шмогла'));
-            }
-        },2);
-    });
-}
-
-function callAPI(method, params) {
-    params.v = '5.76';
-
-    return new Promise((resolve, reject ) => {
-        VK.api(method, params, (data) => {
-            if (data.error) {
-                reject(data.error);
-            } else {
-                resolve(data.response);
-            }
-        });
-    });
-}
 
 (async () => {
     try {
-        await auth();
+        await vkAuth.auth();
 
-        const friends = await callAPI('friends.get', { fields: 'photo_100', count: 20 });
+        const friends = await vkAPI.getUsers({ fields: 'photo_100', count: 20 });
 
         if (localStorage.getItem('array')) {
             arrays.rightItems = JSON.parse(localStorage.getItem('array'));
@@ -102,9 +76,7 @@ function update(friends, column) {
     friends.forEach((item) => {    
         document.querySelector(`[data-id='${item.id}']`).item = item.id;
     });
-
-    
-}
+};
 
 function onButton () {
     let leftZone = document.querySelector('.left-column .friends-wrapper');
@@ -129,7 +101,7 @@ function onButton () {
             } 
 
             if(currentBtn.classList.contains('button-save')) {
-                localStorage.setItem('array', JSON.stringify(arrays.rightItems))
+                localStorage.setItem('array', JSON.stringify(arrays.rightItems));
             }
 
         }
@@ -143,8 +115,8 @@ function changeFriendsColumn(currentItem, column){
 
     for(let i in currentColumn) {
         if(currentColumn[i].id === currentItem.item){
-            siblingColumn.push(currentColumn[i])
-            currentColumn.splice(i,1)
+            siblingColumn.push(currentColumn[i]);
+            currentColumn.splice(i,1);
         }                    
     }
 }
@@ -164,7 +136,7 @@ document.addEventListener('dragstart', e => {
         }
         currentDrag.node.classList.add('friends-item_active');
     }
-})
+});
 
 document.addEventListener('dragover', (e) => {
     const zone = getCurrentZone(e.target, 'friends-wrapper');
@@ -189,15 +161,4 @@ document.addEventListener('drop', (e) => {
         }
 
     }
-})
-
-function getCurrentZone(from, zone) {
-
-    if(from == null || from.classList.contains(zone)){
-
-        return from;
-    } else {
-
-        return getCurrentZone(from.parentElement, zone);
-    }    
-}
+});
