@@ -1,6 +1,7 @@
 import { isMatch } from './isMatch.js';
-import vkAuth from './apiVK/auth.js';
 import { getCurrentZone } from './getCurrentZone.js';
+import { update } from './updateDom.js';
+import vkAuth from './apiVK/auth.js';
 import vkAPI from './apiVK/callAPI.js';
 
 
@@ -64,21 +65,7 @@ var arrays= {
     rightItems: []
 };
 
-
-function update(friends, column) {
-    const template = document.querySelector('#user-template').textContent;
-    const render = Handlebars.compile(template);        
-    const html = render(friends);
-    const wrapper = document.querySelector(`.${column} .friends-wrapper`);
-
-    wrapper.innerHTML = html;
-
-    friends.forEach((item) => {    
-        document.querySelector(`[data-id='${item.id}']`).item = item.id;
-    });
-};
-
-function onButton () {
+function onButton() {
     let leftZone = document.querySelector('.left-column .friends-wrapper');
     let rightZone = document.querySelector('.right-column .friends-wrapper');
     
@@ -150,15 +137,13 @@ document.addEventListener('drop', (e) => {
     e.preventDefault();
 
     if (currentDrag) {
-        const zone = getCurrentZone(e.target, 'friends-wrapper')
-
+        const zone = getCurrentZone(e.target, 'friends-wrapper');
         e.preventDefault();
 
         if (zone && currentDrag.startZone !== zone) {
             currentDrag.node.classList.remove('friends-item_active');
             zone.appendChild(currentDrag.node);
-            changeFriendsColumn(currentDrag.id, currentDrag.column)
+            changeFriendsColumn(currentDrag.id, currentDrag.column);
         }
-
     }
 });
