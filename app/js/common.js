@@ -51,7 +51,7 @@ import vkAPI from './apiVK/callAPI.js';
         });
 
         update(arrays.leftItems, 'left-column');        
-        onButton()    
+        onButton()
     
     } catch (e) {
         console.log(e);
@@ -108,7 +108,7 @@ function changeFriendsColumn(currentItem, column){
     }
 }
 
-document.addEventListener('dragstart', e => {
+addEventListener('dragstart', e => {
     const zone = getCurrentZone(e.target, 'friends-wrapper');
     const item = getCurrentZone(e.target, 'friends-item'); 
     const column = getCurrentZone(e.target, 'left-column') === null ? 'right' : 'left';     
@@ -125,7 +125,7 @@ document.addEventListener('dragstart', e => {
     }
 });
 
-document.addEventListener('dragover', (e) => {
+addEventListener('dragover', (e) => {
     const zone = getCurrentZone(e.target, 'friends-wrapper');
 
     if (zone) {
@@ -133,7 +133,7 @@ document.addEventListener('dragover', (e) => {
     }
 });
 
-document.addEventListener('drop', (e) => {
+addEventListener('drop', (e) => {
     e.preventDefault();
 
     if (currentDrag) {
