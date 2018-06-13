@@ -1,48 +1,25 @@
-VK.init({
-    apiId: 6487256
-});
+import { isMatch } from './isMatch.js';
+import { getCurrentZone } from './getCurrentZone.js';
+import { update } from './updateDom.js';
+import vkAuth from './apiVK/auth.js';
+import vkAPI from './apiVK/callAPI.js';
 
-function auth() {
-    return new Promise((resolve, reject ) => {
 
-        VK.Auth.login(data => {
-            if (data.session) {
-                resolve();
-            } else {
-                reject(new Error('Не шмогла'));
-            }
-        },2);
-    });
-}
-
-function callAPI(method, params) {
-    params.v = '5.76';
-
-    return new Promise((resolve, reject ) => {
-        VK.api(method, params, (data) => {
-            if (data.error) {
-                reject(data.error);
-            } else {
-                resolve(data.response);
-            }
-        });
-    });
-}
 
 (async () => {
     try {
-        await auth();
+        await vkAuth.auth();
 
-        const friends = await callAPI('friends.get', { fields: 'photo_100', count: 20 });
+        const friends = await vkAPI.getUsers({ fields: 'photo_100', count: 20 });
 
         if (localStorage.getItem('array')) {
-            arrays.rightItems = JSON.parse(localStorage.getItem('array'))
+            arrays.rightItems = JSON.parse(localStorage.getItem('array'));
 
             for(var i = 0; i < friends.items.length; i++){
                 for(var j = 0; j < arrays.rightItems.length; j++) {
 
                     if(friends.items[i].id == arrays.rightItems[j].id) {
-                        friends.items.splice(i, 1)                        
+                        friends.items.splice(i, 1);                      
                     }
                 }  
             }
@@ -54,8 +31,8 @@ function callAPI(method, params) {
         }
 
         document.addEventListener('input', (e)=>{
-            zone =  getCurrentZone(e.target, 'input-friends-vk') === null ? arrays.rightItems : arrays.leftItems;
-            column =  zone === arrays.rightItems ? 'right-column' : 'left-column';
+            let zone =  getCurrentZone(e.target, 'input-friends-vk') === null ? arrays.rightItems : arrays.leftItems;
+            let column =  zone === arrays.rightItems ? 'right-column' : 'left-column';
 
             if (e.target.value) {
                 let arr = [];
@@ -74,7 +51,7 @@ function callAPI(method, params) {
         });
 
         update(arrays.leftItems, 'left-column');        
-        onButton();        
+        onButton()
     
     } catch (e) {
         console.log(e);
@@ -88,26 +65,7 @@ var arrays= {
     rightItems: []
 };
 
-function isMatch (full, chunk) {
-    return full.toLowerCase().indexOf(chunk.toLowerCase()) !== -1 ? true : false;
-}
-
-function update(friends, column) {
-    const template = document.querySelector('#user-template').textContent;
-    const render = Handlebars.compile(template);        
-    const html = render(friends);
-    const wrapper = document.querySelector(`.${column} .friends-wrapper`);
-
-    wrapper.innerHTML = html;
-
-    friends.forEach((item) => {    
-        document.querySelector(`[data-id='${item.id}']`).item = item.id;
-    });
-
-    
-}
-
-function onButton () {
+function onButton() {
     let leftZone = document.querySelector('.left-column .friends-wrapper');
     let rightZone = document.querySelector('.right-column .friends-wrapper');
     
@@ -130,7 +88,7 @@ function onButton () {
             } 
 
             if(currentBtn.classList.contains('button-save')) {
-                localStorage.setItem('array', JSON.stringify(arrays.rightItems))
+                localStorage.setItem('array', JSON.stringify(arrays.rightItems));
             }
 
         }
@@ -144,13 +102,13 @@ function changeFriendsColumn(currentItem, column){
 
     for(let i in currentColumn) {
         if(currentColumn[i].id === currentItem.item){
-            siblingColumn.push(currentColumn[i])
-            currentColumn.splice(i,1)
+            siblingColumn.push(currentColumn[i]);
+            currentColumn.splice(i,1);
         }                    
     }
 }
 
-document.addEventListener('dragstart', e => {
+addEventListener('dragstart', e => {
     const zone = getCurrentZone(e.target, 'friends-wrapper');
     const item = getCurrentZone(e.target, 'friends-item'); 
     const column = getCurrentZone(e.target, 'left-column') === null ? 'right' : 'left';     
@@ -165,9 +123,9 @@ document.addEventListener('dragstart', e => {
         }
         currentDrag.node.classList.add('friends-item_active');
     }
-})
+});
 
-document.addEventListener('dragover', (e) => {
+addEventListener('dragover', (e) => {
     const zone = getCurrentZone(e.target, 'friends-wrapper');
 
     if (zone) {
@@ -175,30 +133,17 @@ document.addEventListener('dragover', (e) => {
     }
 });
 
-document.addEventListener('drop', (e) => {
+addEventListener('drop', (e) => {
     e.preventDefault();
 
     if (currentDrag) {
-        const zone = getCurrentZone(e.target, 'friends-wrapper')
-
+        const zone = getCurrentZone(e.target, 'friends-wrapper');
         e.preventDefault();
 
         if (zone && currentDrag.startZone !== zone) {
             currentDrag.node.classList.remove('friends-item_active');
             zone.appendChild(currentDrag.node);
-            changeFriendsColumn(currentDrag.id, currentDrag.column)
+            changeFriendsColumn(currentDrag.id, currentDrag.column);
         }
-
     }
-})
-
-function getCurrentZone(from, zone) {
-
-    if(from == null || from.classList.contains(zone)){
-
-        return from;
-    } else {
-
-        return getCurrentZone(from.parentElement, zone);
-    }    
-}
+});
