@@ -1,4 +1,6 @@
 import { getCurrentZone } from './getCurrentZone.js';
+import { changeFriendsColumn } from './changeColums.js';
+import { arrays } from './const.js';
 
 export function initDrug (){
     let currentDrag;

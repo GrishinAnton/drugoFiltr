@@ -2,6 +2,8 @@ import { isMatch } from './isMatch.js';
 import { getCurrentZone } from './getCurrentZone.js';
 import { update } from './updateDom.js';
 import {initDrug} from './drag.js';
+import {arrays} from './const.js';
+import {onButton} from './onButton.js';
 import vkAuth from './apiVK/auth.js';
 import vkAPI from './apiVK/callAPI.js';
 
@@ -59,54 +61,5 @@ import vkAPI from './apiVK/callAPI.js';
     }
 
 })();
-
-
-var arrays= {
-    leftItems: [],
-    rightItems: []
-};
-
-function onButton() {
-    let leftZone = document.querySelector('.left-column .friends-wrapper');
-    let rightZone = document.querySelector('.right-column .friends-wrapper');
-    
-    document.addEventListener('click', (e) => {
-
-        let currentBtn = getCurrentZone(e.target, 'js-button');   
-
-        if (currentBtn) {
-            if (currentBtn.classList.contains('button-item')) {
-
-                if (getCurrentZone(currentBtn, 'left-column')) {
-                    let currentItem = getCurrentZone(currentBtn, 'friends-item') 
-                    changeFriendsColumn(currentItem, 'left')               
-                    rightZone.appendChild(currentItem);
-                } else {
-                    let currentItem = getCurrentZone(currentBtn, 'friends-item')  
-                    changeFriendsColumn(currentItem, 'right')             
-                    leftZone.appendChild(currentItem);
-                }
-            } 
-
-            if(currentBtn.classList.contains('button-save')) {
-                localStorage.setItem('array', JSON.stringify(arrays.rightItems));
-            }
-
-        }
-               
-    });
-}
-
-function changeFriendsColumn(currentItem, column){    
-    let currentColumn = column === 'left' ? arrays.leftItems : arrays.rightItems;
-    let siblingColumn = column === 'left' ? arrays.rightItems : arrays.leftItems;    
-
-    for(let i in currentColumn) {
-        if(currentColumn[i].id === currentItem.item){
-            siblingColumn.push(currentColumn[i]);
-            currentColumn.splice(i,1);
-        }                    
-    }
-}
 
 initDrug()
