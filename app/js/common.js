@@ -1,11 +1,9 @@
 import { update } from './updateDom.js';
-import {initDrug} from './listener.js';
-import {arrays} from './const.js';
-import {onButton} from './onButton.js';
+import { initListener } from './listener.js';
+import { arrays } from './const.js';
+import { onButton } from './onButton.js';
 import vkAuth from './apiVK/auth.js';
 import vkAPI from './apiVK/callAPI.js';
-
-
 
 (async () => {
     try {
@@ -20,18 +18,18 @@ import vkAPI from './apiVK/callAPI.js';
                 for(var j = 0; j < arrays.rightItems.length; j++) {
 
                     if(friends.items[i].id == arrays.rightItems[j].id) {
-                        friends.items.splice(i, 1);                      
+                        friends.items.splice(i, 1);
                     }
                 }  
             }
             arrays.leftItems = friends.items.slice();
-            update(arrays.rightItems, 'right-column'); 
+            update(arrays.rightItems, 'right-column');
 
         } else {
             arrays.leftItems = friends.items.slice();
         }
 
-        update(arrays.leftItems, 'left-column');        
+        update(arrays.leftItems, 'left-column');
         onButton()
     
     } catch (e) {
@@ -40,4 +38,4 @@ import vkAPI from './apiVK/callAPI.js';
 
 })();
 
-initDrug()
+initListener()

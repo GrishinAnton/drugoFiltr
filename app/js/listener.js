@@ -4,7 +4,7 @@ import { arrays } from './const.js';
 import { isMatch } from './isMatch.js';
 import { update } from './updateDom.js';
 
-export function initDrug (){
+export function initListener (){
     let currentDrag;
     
     addEventListener('dragstart', e => {
