@@ -1,6 +1,8 @@
 import { getCurrentZone } from './getCurrentZone.js';
 import { changeFriendsColumn } from './changeColums.js';
 import { arrays } from './const.js';
+import { isMatch } from './isMatch.js';
+import { update } from './updateDom.js';
 
 export function initDrug (){
     let currentDrag;
@@ -42,6 +44,26 @@ export function initDrug (){
                 zone.appendChild(currentDrag.node);
                 changeFriendsColumn(currentDrag.id, currentDrag.column);
             }
+        }
+    });
+
+   addEventListener('input', (e) => {
+        let zone = getCurrentZone(e.target, 'input-friends-vk') === null ? arrays.rightItems : arrays.leftItems;
+        let column = zone === arrays.rightItems ? 'right-column' : 'left-column';
+
+        if (e.target.value) {
+            let arr = [];
+
+            zone.forEach(item => {
+                if (isMatch(`${item.first_name} ${item.last_name}`, e.target.value)) {
+                    arr.push(item);
+                }
+            });
+
+            update(arr, column);
+        } else {
+
+            update(zone, column);
         }
     });
 }
