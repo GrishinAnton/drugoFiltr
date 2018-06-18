@@ -2,7 +2,7 @@ import { getCurrentZone } from './functions/getCurrentZone.js';
 import { changeFriendsColumn } from './changeColums.js';
 import { columns } from './const.js';
 import { isMatch } from './functions/isMatch.js';
-import { update } from './updateDom.js';
+import { updateDom } from './updateDom.js';
 
 export function initListener (){
     let currentDrag;

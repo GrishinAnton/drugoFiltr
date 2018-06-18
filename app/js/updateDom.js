@@ -1,4 +1,4 @@
-export function update(friends, column) {
+export function updateDom(friends, column) {
     const template = document.querySelector('#user-template').textContent;
     const render = Handlebars.compile(template);        
     const html = render(friends);

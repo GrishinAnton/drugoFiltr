@@ -1,4 +1,4 @@
-import { update } from './updateDom.js';
+import { updateDom } from './updateDom.js';
 import { initListener } from './listener.js';
 import { columns } from './const.js';
 import { onButton } from './onButton.js';
@@ -23,22 +23,19 @@ import vkAPI from './apiVK/callAPI.js';
                 }  
             }
 
-            
-            
             columns.getInstance().setLeftColumn(friends.items);         
-            update(columns.getInstance().getRightColumn(), 'right-column');
+            updateDom(columns.getInstance().getRightColumn(), 'right-column');
 
         } else {
+
             columns.getInstance().setLeftColumn(friends.items);
         }
 
-        update(columns.getInstance().getLeftColumn(), 'left-column');
-        onButton()
-    
+        updateDom(columns.getInstance().getLeftColumn(), 'left-column'); 
     } catch (e) {
         console.log(e);
     }
 
 })();
-
+onButton()
 initListener()

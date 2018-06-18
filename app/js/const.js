@@ -1,4 +1,4 @@
-export var columns = (function () {
+export const columns = (function () {
 
     var leftColumn = [],
         rightColumn = [],

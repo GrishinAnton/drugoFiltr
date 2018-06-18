@@ -1,6 +1,7 @@
 
 import { getCurrentZone } from './functions/getCurrentZone.js';
 import { changeFriendsColumn } from './changeColums.js';
+import { columns } from './const.js';
 
 export function onButton() {    
 
