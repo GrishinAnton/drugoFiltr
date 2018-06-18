@@ -1,5 +1,5 @@
 
-import { getCurrentZone } from './getCurrentZone.js';
+import { getCurrentZone } from './functions/getCurrentZone.js';
 import { changeFriendsColumn } from './changeColums.js';
 
 export function onButton() {    
@@ -26,7 +26,7 @@ export function onButton() {
             }
 
             if (currentBtn.classList.contains('button-save')) {
-                localStorage.setItem('array', JSON.stringify(arrays.rightItems));
+                localStorage.setItem('array', JSON.stringify(columns.getInstance().getRightColumn()));
             }
         }
     });
