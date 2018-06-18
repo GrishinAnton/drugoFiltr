@@ -1,12 +1,14 @@
 
-import { getCurrentZone } from './getCurrentZone.js';
+import { getCurrentZone } from './functions/getCurrentZone.js';
 import { changeFriendsColumn } from './changeColums.js';
+import { columns } from './const.js';
 
-export function onButton() {
-    let leftZone = document.querySelector('.left-column .friends-wrapper');
-    let rightZone = document.querySelector('.right-column .friends-wrapper');
+export function onButton() {    
 
     document.addEventListener('click', (e) => {
+
+        let leftZone = document.querySelector('.left-column .friends-wrapper');
+        let rightZone = document.querySelector('.right-column .friends-wrapper');
 
         let currentBtn = getCurrentZone(e.target, 'js-button');
 
@@ -25,10 +27,8 @@ export function onButton() {
             }
 
             if (currentBtn.classList.contains('button-save')) {
-                localStorage.setItem('array', JSON.stringify(arrays.rightItems));
+                localStorage.setItem('array', JSON.stringify(columns.getInstance().getRightColumn()));
             }
-
         }
-
     });
 }

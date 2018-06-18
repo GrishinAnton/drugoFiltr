@@ -1,10 +1,10 @@
-import { getCurrentZone } from './getCurrentZone.js';
+import { getCurrentZone } from './functions/getCurrentZone.js';
 import { changeFriendsColumn } from './changeColums.js';
-import { arrays } from './const.js';
-import { isMatch } from './isMatch.js';
-import { update } from './updateDom.js';
+import { columns } from './const.js';
+import { isMatch } from './functions/isMatch.js';
+import { updateDom } from './updateDom.js';
 
-export function initDrug (){
+export function initListener (){
     let currentDrag;
     
     addEventListener('dragstart', e => {
@@ -48,8 +48,8 @@ export function initDrug (){
     });
 
    addEventListener('input', (e) => {
-        let zone = getCurrentZone(e.target, 'input-friends-vk') === null ? arrays.rightItems : arrays.leftItems;
-        let column = zone === arrays.rightItems ? 'right-column' : 'left-column';
+        let zone = getCurrentZone(e.target, 'input-friends-vk') === null ? columns.getInstance().getRightColumn() : columns.getInstance().getLeftColumn();
+        let column = zone === columns.getInstance().getRightColumn() ? 'right-column' : 'left-column';
 
         if (e.target.value) {
             let arr = [];
