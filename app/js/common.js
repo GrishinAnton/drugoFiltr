@@ -12,7 +12,7 @@ import vkAPI from './apiVK/callAPI.js';
         const friends = await vkAPI.getUsers({ fields: 'photo_100', count: 20 });
 
         if (localStorage.getItem('array')) {
-            columns.getInstance().getRightColumn() = JSON.parse(localStorage.getItem('array'));
+            columns.getInstance().setRightColumn(JSON.parse(localStorage.getItem('array')));
 
             for(var i = 0; i < friends.items.length; i++){
                 for(var j = 0; j < columns.getInstance().getRightColumn().length; j++) {
@@ -25,13 +25,11 @@ import vkAPI from './apiVK/callAPI.js';
 
             
             
-            columns.getInstance().getLeftColumn() = friends.items.slice();         
+            columns.getInstance().setLeftColumn(friends.items);         
             update(columns.getInstance().getRightColumn(), 'right-column');
 
         } else {
-            console.log(columns.getInstance().getLeftColumn());
-            console.log(friends.items.slice());
-            columns.getInstance().getLeftColumn() = friends.items.slice();
+            columns.getInstance().setLeftColumn(friends.items);
         }
 
         update(columns.getInstance().getLeftColumn(), 'left-column');

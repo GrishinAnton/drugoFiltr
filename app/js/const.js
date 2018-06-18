@@ -1,4 +1,4 @@
-export const columns = (function () {
+export var columns = (function () {
 
     var leftColumn = [],
         rightColumn = [],
@@ -12,10 +12,20 @@ export const columns = (function () {
         return rightColumn
     }
 
+    var setLeftColumn = function (arr) {
+        leftColumn = arr
+    }
+
+    var setRightColumn = function (arr) {
+        rightColumn = arr
+    }
+
     var createInstance = function () {
         return {
             getLeftColumn: getLeftColumn,
-            getRightColumn: getRightColumn
+            getRightColumn: getRightColumn,
+            setLeftColumn: setLeftColumn,
+            setRightColumn: setRightColumn
         }
     }
 
@@ -25,8 +35,4 @@ export const columns = (function () {
         }
     }
 
-})();
-
-console.log(columns.getInstance().getLeftColumn())
-
-    
+})();    
